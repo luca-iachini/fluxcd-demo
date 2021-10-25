@@ -8,7 +8,9 @@ mkdir auth
 openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
   -keyout certs/registry.key -out certs/registry.crt -subj "/CN=$DOCKER_REG_HOST"
 
-sudo echo "127.0.0.1 registry.localhost" >> /etc/hosts
+#external interface ip
+ip=$(ifconfig en0 | sed -nE 's/.*inet (.*) netmask.*/\1/p')
+sudo echo "$ip $DOCKER_REG_HOST" >> /etc/hosts
 
 echo "add docker insecure registry to docker engine. copy \"insecure-registries\" : [\"$DOCKER_REG_URL\"]"
 
