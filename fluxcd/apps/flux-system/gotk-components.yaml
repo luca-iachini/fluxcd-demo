@@ -5894,6 +5894,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: GODEBUG
+          value: x509ignorecn=0
         image: ghcr.io/fluxcd/image-reflector-controller:v0.13.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
