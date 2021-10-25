@@ -10,10 +10,10 @@ openssl req -x509 -newkey rsa:4096 -sha256 -days 3650 -nodes \
 
 sudo echo "127.0.0.1 registry.localhost" >> /etc/hosts
 
-echo "add docker insecure registry to docker engine. copy \"insecure-registries\" : [\"$DOCKER_REG_HOST:$DOCKER_REG_PORT\"]"
+echo "add docker insecure registry to docker engine. copy \"insecure-registries\" : [\"$DOCKER_REG_URL\"]"
 
 docker run -d \
-  -p $DOCKER_REG_PORT:$DOCKER_REG_PORT \
+  -p $DOCKER_REG_URL \
   --restart=always \
   --name registry \
   -v "$(pwd)"/auth:/auth \
@@ -27,5 +27,5 @@ docker run -d \
 
 
 ## docker registry secret
-kubectl create secret docker-registry regcred --docker-server="$DOCKER_REG_HOST:$DOCKER_REG_PORT" --docker-username="$DOCKER_REG_USER" \
+kubectl create secret docker-registry regcred --docker-server="$DOCKER_REG_URL" --docker-username="$DOCKER_REG_USER" \
   --docker-password="$DOCKER_REG_PASSWORD" --docker-email="docker@example.com"

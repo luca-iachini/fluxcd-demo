@@ -16,12 +16,11 @@ fi
 
 
 export PROJECT="fluxcd-test"
-export REGISTRY=$DOCKER_REG_HOST:$DOCKER_REG_PORT
 export REPOSITORY="${PROJECT}/${PACKAGE}"
 
 echo "Building docker"
 
-docker login -u $DOCKER_REG_USER -p $DOCKER_REG_PASSWORD $REGISTRY
+docker login -u $DOCKER_REG_USER -p $DOCKER_REG_PASSWORD $DOCKER_REG_URL
 
 # Enable BuildKit builds
 export DOCKER_BUILDKIT=1
@@ -30,9 +29,9 @@ export DOCKER_BUILDKIT=1
 docker build . \
   --file docker/Dockerfile \
   --build-arg package=$PACKAGE \
-  --tag ${REGISTRY}/${REPOSITORY}:${VERSION} \
+  --tag ${DOCKER_REG_URL}/${REPOSITORY}:${VERSION} \
   --progress=plain
 
 
 # Push images to registry
-docker push ${REGISTRY}/${REPOSITORY}:${VERSION}
+docker push ${DOCKER_REG_URL}/${REPOSITORY}:${VERSION}

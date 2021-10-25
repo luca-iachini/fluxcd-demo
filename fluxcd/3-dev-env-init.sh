@@ -11,3 +11,7 @@ flux create source git dev --url ssh://git@github.com/luca-iachini/fluxcd-test.g
 
 flux create helmrelease app1 --source GitRepository/dev --values ../helm/app1/values.dev.yaml --chart "./charts/go" --target-namespace dev \
   --interval 30s --export | tee dev/apps/app1.yaml
+
+flux create image repository app1 --image=$DOCKER_REG_URL/fluxcd-test/app1 \
+--interval=1m --secret-ref regcred \
+--export > ./dev/apps/app1-registry.yaml

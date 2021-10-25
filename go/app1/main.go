@@ -26,7 +26,7 @@ func health(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", root)
-	http.HandleFunc("/healthz", health)
+	http.HandleFunc("/health", health)
 	logger.Info("App1 listening 8080")
 	logger.Fatal("HTTP Server error", zap.Error(http.ListenAndServe(":8080", nil)))
 }
