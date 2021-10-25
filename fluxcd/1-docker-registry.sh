@@ -27,5 +27,5 @@ docker run -d \
 
 
 ## docker registry secret
-kubectl create secret docker-registry regcred --docker-server="$DOCKER_REG_URL" --docker-username="$DOCKER_REG_USER" \
+kubectl create secret -n flux-system docker-registry regcred --docker-server="$DOCKER_REG_URL" --docker-username="$DOCKER_REG_USER" \
   --docker-password="$DOCKER_REG_PASSWORD" --docker-email="docker@example.com"
