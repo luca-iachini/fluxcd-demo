@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: ./chart/go
+      chart: ./charts/go
       sourceRef:
         kind: GitRepository
         name: dev

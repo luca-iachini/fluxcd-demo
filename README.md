@@ -17,3 +17,9 @@ Get fluxcd git sources
 ```sh
 watch flux get sources git
 ```
+
+Get helm releases
+
+```sh
+watch flux get helmreleases
+```
