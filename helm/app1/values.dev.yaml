@@ -1,0 +1,13 @@
+image:
+  registry: registry.localhost:5000
+  repository: fluxcd-test/app1
+  tag: 0.0.1
+  pullPolicy: IfNotPresent
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 120Mi
+  requests:
+    cpu: 100m
+    memory: 120Mi

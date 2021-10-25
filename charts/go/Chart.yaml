@@ -1,0 +1,7 @@
+apiVersion: v2
+name: go
+version: 0.1
+description: Event-driven I/O server-side JavaScript environment based on V8
+keywords:
+  - go
+home: http://golang.org/

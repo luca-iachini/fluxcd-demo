@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "go.fullname" . }}
+  labels: {{- include "go.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels: {{- include "go.matchLabels" . | nindent 6 }}
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels: {{- include "go.labels" . | nindent 8 }}
+    spec:
+      {{- if .Values.affinity }}
+      affinity: {{- include "go.tplValue" (dict "value" .Values.affinity "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector: {{- include "go.tplValue" (dict "value" .Values.nodeSelector "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations: {{- include "go.tplValue" (dict "value" .Values.tolerations "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if .Values.serviceAccountName }}
+      serviceAccountName: {{ .Values.serviceAccountName }}
+      {{- end }}
+      {{- if .Values.securityContext.enabled }}
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+        runAsUser: {{ .Values.securityContext.runAsUser }}
+      {{- end }}
+      containers:
+        - name: node
+          image: {{ template "go.image" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
+          envFrom:
+            {{- if .Values.secret }}
+            - secretRef:
+                name: {{ template "go.fullname" . }}
+            {{- end }}
+            {{- if .Values.configmap }}
+            - configMapRef:
+                name: {{ template "go.fullname" . }}
+            {{- end }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.applicationPort }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.probe.liveness.path }}
+              port: http
+            initialDelaySeconds: 60
+            timeoutSeconds: 5
+            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.probe.readiness.path }}
+              port: http
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 5
+          volumeMounts:
+            {{- if .Values.secretAsFile }}
+            {{- range $key, $val := .Values.secretAsFile }}
+            - mountPath: {{ $val.mountPath }}
+              name: {{ template "go.fullname" $ }}-{{ $key | replace "." "-" }}
+              readOnly: true
+            {{- end }}
+            {{- end }}
+      volumes:
+        {{- if .Values.secretAsFile }}
+        {{- range $key, $val := .Values.secretAsFile }}
+        - name: {{ template "go.fullname" $ }}-{{ $key | replace "." "-" }}
+          secret:
+            secretName: {{ template "go.fullname" $ }}-{{ $key | replace "." "-" }}
+        {{- end }}
+        {{- end }}
