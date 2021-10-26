@@ -17,7 +17,7 @@ spec:
       pullPolicy: IfNotPresent
       registry: registry.localhost:5000
       repository: fluxcd-test/app1
-      tag: main-ffc0bb7-1635246959 # {"$imagepolicy": "flux-system:dev-app1:tag"}
+      tag: main-b9fe677-1635259442 # {"$imagepolicy": "flux-system:dev-app1:tag"}
     resources:
       limits:
         cpu: 100m
