@@ -1,4 +1,3 @@
----
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -18,7 +17,7 @@ spec:
       pullPolicy: IfNotPresent
       registry: registry.localhost:5000
       repository: fluxcd-test/app1
-      tag: 0.0.1 # {"$imagepolicy": "flux-system:dev-app1:tag"}
+      tag: 0.0.3 # {"$imagepolicy": "flux-system:dev-app1:tag"}
     resources:
       limits:
         cpu: 100m
@@ -26,4 +25,3 @@ spec:
       requests:
         cpu: 100m
         memory: 120Mi
-
