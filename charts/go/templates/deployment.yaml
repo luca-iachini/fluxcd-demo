@@ -30,7 +30,7 @@ spec:
       {{- end }}
       containers:
         - name: node
-          image: {{ template "go.image" . }} # {"$imagepolicy": "flux-system:{{.Release.Name}}"}
+          image: {{ template "go.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           envFrom:
             {{- if .Values.secret }}
