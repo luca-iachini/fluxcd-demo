@@ -16,7 +16,7 @@ func init() {
 }
 
 func root(w http.ResponseWriter, r *http.Request) {
-	logger.Info("/ called")
+	logger.Info("root called")
 	fmt.Fprintf(w, "app1 says %s", hello.Hello())
 }
 
