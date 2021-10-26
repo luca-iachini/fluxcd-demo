@@ -5882,20 +5882,6 @@ spec:
       labels:
         app: image-reflector-controller
     spec:
-      initContainers:
-      - name: certificate-init-container
-        image: busybox:1.34.0
-        imagePullPolicy: IfNotPresent
-        command:
-          - sh
-        args:
-          - -c
-          - cp /registry-cert/registry-ca /certs/registry-ca.crt
-        volumeMounts:
-          - name: certs
-            mountPath: /certs
-          - name: registry-cert
-            mountPath: /registry-cert
       containers:
       - args:
         - --events-addr=http://notification-controller/
@@ -5940,8 +5926,10 @@ spec:
           name: temp
         - mountPath: /data
           name: data
-        - name: certs
-          mountPath: /usr/local/share/ca-certificates
+        - name: registry-cert
+          mountPath: /etc/ssl/certs/registry.crt
+          subPath: registry.crt
+          readOnly: false
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
@@ -5957,8 +5945,6 @@ spec:
       - name: registry-cert
         secret:
           secretName: registry-ca
-      - name: certs
-        emptyDir: {}
 ---
 apiVersion: apps/v1
 kind: Deployment

@@ -35,4 +35,4 @@ kubectl create secret -n flux-system docker-registry regcred --docker-server="$D
   --docker-password="$DOCKER_REG_PASSWORD" --docker-email="docker@example.com"
 
 
-kubectl create secret -n flux-system generic registry-ca --from-file=registry-ca=./cert/registry.crt
+kubectl create secret -n flux-system generic registry-ca --from-file=./certs/registry.crt
