@@ -15,3 +15,8 @@ flux create helmrelease app1 --source GitRepository/dev --values ../helm/app1/va
 flux create image repository app1 --image=$DOCKER_REG_URL/fluxcd-test/app1 \
 --interval=1m --secret-ref regcred \
 --export > ./dev/apps/app1-registry.yaml
+
+flux create image policy dev-app1 \
+--image-ref=app1 \
+--select-semver=0.0.x \
+--export > ./dev/apps/app1-policy.yaml
