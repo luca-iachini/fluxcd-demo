@@ -10,7 +10,7 @@ spec:
     branch: main
   secretRef:
     name: github-ssh-credentials
-  url: ssh://git@github.com/luca-iachini/fluxcd-test.git
+  url: ssh://git@github.com/luca-iachini/fluxcd-test
 
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2

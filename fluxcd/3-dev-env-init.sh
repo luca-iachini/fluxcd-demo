@@ -5,7 +5,7 @@ kubectl create secret -n flux-system generic github-ssh-credentials \
     --from-literal known_hosts="$(ssh-keyscan github.com)"
 
 #add flux git souce for dev env configurations
-flux create source git dev --url ssh://git@github.com/luca-iachini/fluxcd-test.git --secret-ref github-ssh-credentials \
+flux create source git dev --url ssh://git@github.com/luca-iachini/fluxcd-test --secret-ref github-ssh-credentials \
  --branch main --interval 30s --export | tee apps/dev.yaml
 
 #create flux configurations for dev env
