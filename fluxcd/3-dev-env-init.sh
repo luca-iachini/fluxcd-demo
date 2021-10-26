@@ -30,7 +30,7 @@ flux create image policy dev-app1 \
 
 
 flux create image update dev-apps \
---git-repo-ref=flux-system \
+--git-repo-ref=dev \
 --git-repo-path="./fluxcd/dev/apps" \
 --checkout-branch=main \
 --push-branch=main \

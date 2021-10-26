@@ -19,7 +19,7 @@ spec:
   interval: 1m0s
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: dev
   update:
     path: ./fluxcd/dev/apps
     strategy: Setters
