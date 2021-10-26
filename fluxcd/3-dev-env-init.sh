@@ -16,10 +16,18 @@ flux create image repository app1 --image=$DOCKER_REG_URL/fluxcd-test/app1 \
 --interval=1m --secret-ref regcred \
 --export > ./dev/apps/app1-registry.yaml
 
+#flux create image policy dev-app1 \
+#--image-ref=app1 \
+#--select-semver=0.0.x \
+#--export > ./dev/apps/app1-policy.yaml
+
 flux create image policy dev-app1 \
 --image-ref=app1 \
---select-semver=0.0.x \
+--select-numeric=asc \
+--filter-regex='^main-[a-f0-9]+-(?P<ts>[0-9]+)' \
+--filter-extract='$ts' \
 --export > ./dev/apps/app1-policy.yaml
+
 
 flux create image update flux-system \
 --git-repo-ref=flux-system \
