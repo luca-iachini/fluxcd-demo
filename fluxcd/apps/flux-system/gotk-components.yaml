@@ -5939,6 +5939,7 @@ spec:
         kubernetes.io/os: linux
       securityContext:
         fsGroup: 1337
+        privileged: true
       serviceAccountName: image-reflector-controller
       terminationGracePeriodSeconds: 10
       volumes:
