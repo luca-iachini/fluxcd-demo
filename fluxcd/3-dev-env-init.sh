@@ -20,3 +20,13 @@ flux create image policy dev-app1 \
 --image-ref=app1 \
 --select-semver=0.0.x \
 --export > ./dev/apps/app1-policy.yaml
+
+flux create image update flux-system \
+--git-repo-ref=flux-system \
+--git-repo-path="./fluxcd/dev/apps" \
+--checkout-branch=main \
+--push-branch=main \
+--author-name=fluxcdbot \
+--author-email=fluxcdbot@users.noreply.github.com \
+--commit-template="{{range .Updated.Images}}{{println .}}{{end}}" \
+--export > ./dev/apps/flux-system-automation.yaml
