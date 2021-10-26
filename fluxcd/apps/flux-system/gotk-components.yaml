@@ -5921,11 +5921,20 @@ spec:
         securityContext:
           allowPrivilegeEscalation: false
           readOnlyRootFilesystem: true
+        lifecycle:
+          postStart:
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - cp /var/certs/registry-ca /usr/local/share/ca-certificates/registry-ca.crt
         volumeMounts:
         - mountPath: /tmp
           name: temp
         - mountPath: /data
           name: data
+        - name: registry-cert
+          mountPath: /var/certs
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
@@ -5937,6 +5946,9 @@ spec:
         name: temp
       - emptyDir: {}
         name: data
+      - name: registry-cert
+        secret:
+          secretName: registry-ca
 ---
 apiVersion: apps/v1
 kind: Deployment
