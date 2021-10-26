@@ -1,6 +1,6 @@
 apiVersion: v2
 name: go
-version: 0.1
+version: 0.2
 description: Event-driven I/O server-side JavaScript environment based on V8
 keywords:
   - go
