@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/template/spec/containers/0/volumeMounts/-
+  value:
+    name: registry-cert
+    mountPath: /etc/ssl/certs/registry.crt
+    subPath: registry.crt
+    readOnly: false
+- op: add
+  path: /spec/template/spec/volumes/-
+  value:
+    name: registry-cert
+    secret:
+      secretName: registry-ca

@@ -3,3 +3,10 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
+patches:
+- path: docker-certs.yaml
+  target:
+    kind: Deployment
+    name: image-reflector-controller
+    namespace: flux-system
+    version: apps/v1
