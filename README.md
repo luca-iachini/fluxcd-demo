@@ -4,7 +4,7 @@ fluxcd test repo
 
 ## Install
 
-Execute all the scripts in te fluxcd folder:
+Execute all the scripts in the fluxcd folder:
 
 - `1-docker-registry.sh` add a local registry
 - `2-install-flux.sh` add flux controllers to kubernetes
