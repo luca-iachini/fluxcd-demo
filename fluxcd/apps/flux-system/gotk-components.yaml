@@ -5926,15 +5926,10 @@ spec:
           name: temp
         - mountPath: /data
           name: data
-        - name: registry-cert
-          mountPath: /etc/ssl/certs/registry.crt
-          subPath: registry.crt
-          readOnly: false
       nodeSelector:
         kubernetes.io/os: linux
       securityContext:
         fsGroup: 1337
-        privileged: true
       serviceAccountName: image-reflector-controller
       terminationGracePeriodSeconds: 10
       volumes:
@@ -5942,9 +5937,6 @@ spec:
         name: temp
       - emptyDir: {}
         name: data
-      - name: registry-cert
-        secret:
-          secretName: registry-ca
 ---
 apiVersion: apps/v1
 kind: Deployment
