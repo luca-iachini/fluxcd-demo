@@ -23,3 +23,15 @@ Get helm releases
 ```sh
 watch flux get helmreleases
 ```
+
+Get image repository
+
+```sh
+kubectl get imagerepository -n flux-system
+```
+
+Get image update automation
+
+```sh
+kubectl get -n flux-system imageupdateautomation
+```
