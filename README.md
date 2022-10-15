@@ -1,6 +1,6 @@
-# fluxcd-test
+# fluxcd-demo
 
-fluxcd test repo
+Fluxcd demo repo
 
 ## Install
 
